@@ -1,0 +1,1 @@
+include ':app', ':commonsdk', ':rarelysdk', ':module_main', ':commonbase'

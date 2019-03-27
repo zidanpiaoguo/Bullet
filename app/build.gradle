@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+//apply plugin: 'kotlin-android'
+//
+//apply plugin: 'kotlin-android-extensions'
+//kapt {
+//    arguments {
+//        arg("AROUTER_MODULE_NAME", project.getName())
+//    }
+//    generateStubs = true
+//}
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.lzy.bulletproject"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    dataBinding {
+        enabled = true
+    }
+
+
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //官方布局
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //官方常用依赖（v7包中有v4包）
+    //  implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    // implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+
+    //dagger2
+    implementation 'com.google.dagger:dagger:2.13'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    //事件总线
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //RecyclerView 的适配器 (可以用https://github.com/XRecyclerView/XRecyclerView 替代)
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    //指示器
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    //  kapt 'com.android.databinding:compiler:3.0.0-alpha3'
+    compile 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    implementation project(path: ':commonbase')
+    implementation project(path: ':commonsdk')
+    implementation project(':module_main')
+}
